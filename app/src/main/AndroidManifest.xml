@@ -1,0 +1,6 @@
+<manifest
+    package="vijay.expirabledisklrucache"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <uses-sdk android:minSdkVersion="9"/>
+</manifest>
