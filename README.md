@@ -85,34 +85,42 @@ gradle:
 
 Step 1. Add the JitPack repository to your build file
 
+```groovy
 repositories {
     maven {
         url "https://jitpack.io"
     }
 }
+```
 
 Step 2. Add the dependency in the form
 
+```groovy
 dependencies {
     compile 'com.github.vijayrawatsan:ExpirableDiskLruCache:0.1'
 }
+```
 
 maven:
 
 Step 1. Add the JitPack repository to your build file
 
+```xml
 <repository>
     <id>jitpack.io</id>
     <url>https://jitpack.io</url>
 </repository>
+```
 
 Step 2. Add the dependency in the form
 
+```xml
 <dependency>
     <groupId>com.github.vijayrawatsan</groupId>
     <artifactId>ExpirableDiskLruCache</artifactId>
     <version>0.1</version>
 </dependency>
+```
 
 # FAQs
 
