@@ -80,7 +80,39 @@ try {
 ```
 
 # Including in your project
-In progress
+
+gradle:
+
+Step 1. Add the JitPack repository to your build file
+
+repositories {
+    maven {
+        url "https://jitpack.io"
+    }
+}
+
+Step 2. Add the dependency in the form
+
+dependencies {
+    compile 'com.github.vijayrawatsan:ExpirableDiskLruCache:0.1'
+}
+
+maven:
+
+Step 1. Add the JitPack repository to your build file
+
+<repository>
+    <id>jitpack.io</id>
+    <url>https://jitpack.io</url>
+</repository>
+
+Step 2. Add the dependency in the form
+
+<dependency>
+    <groupId>com.github.vijayrawatsan</groupId>
+    <artifactId>ExpirableDiskLruCache</artifactId>
+    <version>0.1</version>
+</dependency>
 
 # FAQs
 
