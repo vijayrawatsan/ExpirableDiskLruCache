@@ -23,7 +23,7 @@ public class ExpirableDiskLruCache {
 
     private static final String EVICTION_TIME              = "EVICTION_TIME";
 
-    private static final Long   DEFAULT_EVICTION_TIME_SPAN = Long.MAX_VALUE;
+    private static final Long   DEFAULT_EVICTION_TIME_SPAN = 9999999999l;
     public static final String  UTF_8                      = "utf-8";
 
     private static boolean      sLogEnabled                = false;
@@ -98,7 +98,7 @@ public class ExpirableDiskLruCache {
         if (sEncryptionEnabled) {
             valueBytes = mEncrypterDecrypter.encrypt(valueBytes, key);
         }
-        mSimpleDiskCache.put(key, valueBytes.toString(), map);
+        mSimpleDiskCache.put(key, new String(valueBytes, UTF_8), map);
         if (sLogEnabled) {
             Log.d(LOG_TAG, "[PUT] : " + key);
         }
@@ -126,7 +126,7 @@ public class ExpirableDiskLruCache {
             if (sEncryptionEnabled) {
                 valueBytes = mEncrypterDecrypter.decrypt(valueBytes, key);
             }
-            return mGson.fromJson(valueBytes.toString(), classOfT);
+            return mGson.fromJson(new String(valueBytes, UTF_8), classOfT);
         }
         if (sLogEnabled) {
             Log.d(LOG_TAG, "[EXPIRED] : " + key);

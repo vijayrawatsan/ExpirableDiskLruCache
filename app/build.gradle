@@ -19,14 +19,19 @@ android {
     }
 }
 
+android.sourceSets.test.java.srcDirs += "build/generated/source/r/debug"
+
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.jakewharton:disklrucache:2.0.2'
     compile 'com.google.code.gson:gson:2.2.4'
     compile 'com.facebook.conceal:conceal:1.0.1@aar'
     testCompile "junit:junit:4.12"
+    testCompile "org.mockito:mockito-core:1.+"
     testCompile "org.assertj:assertj-core:1.7.0"
+    testCompile 'org.apache.maven:maven-ant-tasks:2.1.3'
     testCompile 'org.robolectric:robolectric:3.0-rc2'
+    testCompile 'org.bouncycastle:bcprov-jdk16:1.46'
 }
 
 // build a jar with source files
@@ -36,4 +41,12 @@ task sourcesJar(type: Jar) {
 }
 artifacts {
     archives sourcesJar
+}
+
+afterEvaluate { project ->
+    android.libraryVariants.each { variant ->
+        tasks.getByName("test${variant.name.capitalize()}") {
+            dependsOn "assemble${variant.name.capitalize()}"
+        }
+    }
 }
