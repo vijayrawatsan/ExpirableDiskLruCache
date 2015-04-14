@@ -2,6 +2,8 @@ ExpirableDiskLruCache
 =========
 
 ExpirableDiskLruCache is a wrapper for [DiskLruCache](https://github.com/JakeWharton/DiskLruCache) that allows expiring of key/value pairs by specifying evictionTimeSpan. It has very simple API.
+If required it allows you to encrypt cached data by simply enabling encryptionEnabled to true. By default, it uses [Conceal by facebook](https://github.com/facebook/conceal) for encryption.
+You can provide your custom encryption/decryption as well.
 
 # Eviction Logic
  - During get it will check if currentTime >  currentTime + evictionSpan. Cache entry is removed.
@@ -21,13 +23,32 @@ try {
 }
 ```
 
-The best place to do this would be in your application's `onCreate()` method.
+or enable encryption
 
+```java
+try {
+    ExpirableDiskLruCache.getInstance().init(this, 4096, false, true); //in bytes
+} catch (Exception e) {
+        //failure
+}
+```
+Third parameter is for enable logging. And fourth parameter is for enabling encryption.
+If you may want to use your custom encryption/decryption, use:
+```java
+try {
+    ExpirableDiskLruCache.getInstance().init(this, 4096, false, true, customEncrypterDecrypter); //in bytes
+} catch (Exception e) {
+        //failure
+}
+```
+To create custom encrypter/decrypter simply implement [EncrypterDecrypter.java](https://github.com/vijayrawatsan/ExpirableDiskLruCache/blob/master/app/src/main/java/vijay/expirabledisklrucache/cache/security/EncrypterDecrypter.java)
+
+The best place to do this would be in your application's `onCreate()` method.
 Since this library depends directly on [DiskLruCache](https://github.com/JakeWharton/DiskLruCache), you can refer that project for more info on the maximum size you can allocate etc.
 
 ## Put stuff
 
-You can put objects into ExpirableDiskLruCache synchronously only.
+You can put objects into ExpirableDiskLruCache synchronously:
 
 ```java
 try {
@@ -35,6 +56,10 @@ try {
 } catch (Exception e) {
     //failure;
 }
+```
+Or asynchronously:
+```java
+    ExpirableDiskLruCache.getInstance().put("myKey",myObject, myEvictionTimeSpan, putCallback);
 ```
 
 ## Get Stuff
@@ -48,6 +73,10 @@ try {
         //failure
 }
 ```
+Or asynchronously:
+```java
+    ExpirableDiskLruCache.getInstance().get("myKey",MyClass.class, getCallback);
+```
 
 ## Check for existence
 
@@ -60,7 +89,7 @@ try {
 ```
 
 ## Remove Stuff
-
+You can remove stuff out of ExpirableDiskLruCache synchronously:
 ```java
 try {
     ExpirableDiskLruCache.getInstance().remove("myKey");
@@ -68,7 +97,10 @@ try {
         //failure
 }
 ```
-
+or asynchronously:
+```java
+    ExpirableDiskLruCache.getInstance().remove("myKey", deleteCallback);
+```
 ## Remove All
 
 ```java
@@ -145,6 +177,7 @@ ExpirableDiskLruCache is just a tiny little convenience wrapper around the follo
 - [DiskLruCache](https://github.com/JakeWharton/DiskLruCache)
 - [SimpeDiskCache](https://github.com/fhucho/simple-disk-cache)
 - [GSON](https://code.google.com/p/google-gson/)
+- [Conceal](https://github.com/facebook/conceal)
 
 Thanks, you guys!
 
