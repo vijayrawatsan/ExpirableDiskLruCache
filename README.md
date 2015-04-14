@@ -129,7 +129,7 @@ Step 2. Add the dependency in the form
 
 ```groovy
 dependencies {
-    compile 'com.github.vijayrawatsan:ExpirableDiskLruCache:0.1'
+    compile 'com.github.vijayrawatsan:ExpirableDiskLruCache:0.2'
 }
 ```
 
@@ -150,7 +150,7 @@ Step 2. Add the dependency in the form
 <dependency>
     <groupId>com.github.vijayrawatsan</groupId>
     <artifactId>ExpirableDiskLruCache</artifactId>
-    <version>0.1</version>
+    <version>0.2</version>
 </dependency>
 ```
 
@@ -162,14 +162,8 @@ Anything that GSON can serialize.
 ## What happens if my cache size is exceeded?
 Older objects will be removed in a LRU (Least Recently Used) order.
 
-## Can I use this a SharedPreferences replacement?
-NO! This is a cache. You should store stuff in here that is good to have around, but you wouldn't mind if they were to be removed. SharedPreferences are meant to store user preferences which is not something you want to lose.
-
-# Sample
-In progress
-
 # Contributing
-Contributions welcome via Github pull requests.
+Contributions welcome via Github pull requests. Please write test cases as well.
 
 # Credits
 ExpirableDiskLruCache is just a tiny little convenience wrapper around the following fantastic projects:
@@ -179,7 +173,7 @@ ExpirableDiskLruCache is just a tiny little convenience wrapper around the follo
 - [GSON](https://code.google.com/p/google-gson/)
 - [Conceal](https://github.com/facebook/conceal)
 
-Thanks, you guys!
+Thanks!
 
 # License
 This project is licensed under the MIT License. Please refer the [License.txt](https://github.com/vijayrawatsan/ExpirableDiskLruCache/blob/master/License.txt) file.
